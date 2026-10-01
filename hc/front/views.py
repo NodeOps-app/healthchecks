@@ -947,7 +947,7 @@ def _get_events(
         alerts = list(aq[:page_limit])
 
     flips: list[Flip] = []
-    if kinds is None or "flip" in kinds:
+    if kinds and "flip" in kinds:
         fq = check.flip_set.order_by("-created")
         fq = fq.filter(created__gte=start, created__lte=end)
         flips = list(fq[:page_limit])
