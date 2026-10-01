@@ -227,7 +227,7 @@ def ping(
     ua = headers.get("HTTP_USER_AGENT", "")
     body = request.body[: settings.PING_BODY_LIMIT]
 
-    if exitstatus is not None and exitstatus > 0:
+    if exitstatus is not None and exitstatus > 1:
         action = "fail"
 
     if check.methods == "POST" and method != "POST":
