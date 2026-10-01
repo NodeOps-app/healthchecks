@@ -181,10 +181,7 @@ def sortbydowntime(checks: list[Check]) -> list[Check]:
 
 @register.filter
 def num_down_title(num_down: int) -> str:
-    if num_down:
-        return f"{num_down} down – {settings.SITE_NAME}"
-    else:
-        return settings.SITE_NAME
+    return f"{num_down} down – {settings.SITE_NAME}" if num_down else settings.SITE_NAME
 
 
 @register.filter
