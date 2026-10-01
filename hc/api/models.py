@@ -511,7 +511,7 @@ class Check(models.Model):
             self = Check.objects.select_for_update().get(id=self.id)
             frozen_now = now()
 
-            if self.status == "paused":
+            if self.status == "paused" and self.manual_resume:
                 action = "ign"
 
             if action == "start":
