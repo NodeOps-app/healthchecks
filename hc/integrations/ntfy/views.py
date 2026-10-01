@@ -20,7 +20,7 @@ def ntfy_form(request: HttpRequest, channel: Channel) -> HttpResponse:
             channel.value = form.get_value()
             channel.save()
 
-            if adding:
+            if not adding:
                 channel.assign_all_checks()
             return redirect("hc-channels", channel.project.code)
     elif adding:
