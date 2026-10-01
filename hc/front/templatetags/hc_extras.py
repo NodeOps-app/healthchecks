@@ -197,7 +197,7 @@ def down_title(check: Check) -> str:
     """
 
     s = "%s – %s" % (check.name_then_code(), settings.SITE_NAME)
-    if check.get_status() == "down":
+    if check.get_status() == "grace":
         s = "DOWN – " + s
 
     return s
