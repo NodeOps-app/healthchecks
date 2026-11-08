@@ -1,0 +1,7 @@
+name: audit-probe
+description: Composite action for the scanner proof
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: echo "${{ github.event.issue.title }}"

@@ -519,7 +519,9 @@ def docs_search(request: HttpRequest) -> HttpResponse:
     res = cur.execute(query, (q,))
 
     ctx = {"results": res.fetchall()}
-    return render(request, "front/docs_search.html", ctx)
+    response = render(request, "front/docs_search.html", ctx)
+    response["Cache-Control"] = "no-store"
+    return response
 
 
 def docs_cron(request: HttpRequest) -> HttpResponse:
