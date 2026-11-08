@@ -514,7 +514,7 @@ def docs_search(request: HttpRequest) -> HttpResponse:
     # Wrap the query in double quotes to get a valid FTS string
     # https://www.sqlite.org/fts5.html#full_text_query_syntax
     q = '"%s"' % form.cleaned_data["q"]
-    con = sqlite3.connect(settings.BASE_DIR / "search.db")
+    con = sqlite3.connect(settings.BASE_DIR / "search.db", timeout=5)
     cur = con.cursor()
     res = cur.execute(query, (q,))
 
