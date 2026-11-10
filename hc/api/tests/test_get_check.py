@@ -104,6 +104,10 @@ class GetCheckTestCase(BaseTestCase):
         self.assertEqual(doc["channels"], str(self.c1.code))
         self.assertEqual(doc["desc"], "This is description")
 
+    def test_it_returns_404_for_unknown_unique_key(self) -> None:
+        r = self.get("f" * 40)
+        self.assertEqual(r.status_code, 404)
+
     def test_it_rejects_post_unique_key(self) -> None:
         r = self.csrf_client.post(f"/api/v1/checks/{self.a1.unique_key}")
         self.assertEqual(r.status_code, 405)
