@@ -215,9 +215,8 @@ def _get_referer_qs(request: HttpRequest) -> str:
 
 
 def _status_match(check: Check, statuses: set[str]) -> bool:
-    if "started" in statuses and check.last_start:
-        return True
-    return check.cached_status in statuses
+    started = "started" in statuses and check.last_start is not None
+    return started or check.cached_status in statuses
 
 
 @login_required
