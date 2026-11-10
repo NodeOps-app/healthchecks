@@ -212,8 +212,8 @@ def ping(
         return HttpResponseBadRequest("invalid url format")
 
     headers = request.META
-    remote_addr = headers.get("HTTP_X_FORWARDED_FOR", headers["REMOTE_ADDR"])
-    remote_addr = remote_addr.split(",")[0]
+    # Behind a proxy the first X-Forwarded-For entry is the original client.
+    remote_addr = headers.get("HTTP_X_FORWARDED_FOR", headers["REMOTE_ADDR"]).split(",")[0].strip()
 
     # If remote_addr does not validate but appears to be in ipv4:port form
     # (like Azure App Service reports), then remove the port
