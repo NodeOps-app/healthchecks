@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import email.policy
+import hmac
 import time
 from collections.abc import Iterable
 from datetime import datetime, timezone
@@ -508,7 +509,7 @@ def get_check(request: ApiRequest, code: UUID) -> HttpResponse:
 @authorize_read
 def get_check_by_unique_key(request: ApiRequest, unique_key: str) -> HttpResponse:
     for check in request.project.check_set.all():
-        if check.unique_key == unique_key:
+        if hmac.compare_digest(check.unique_key, unique_key):
             return JsonResponse(check.to_dict(readonly=request.readonly, v=request.v))
     return HttpResponseNotFound()
 
@@ -699,7 +700,7 @@ def flips_by_uuid(request: ApiRequest, code: UUID) -> HttpResponse:
 @authorize_read
 def flips_by_unique_key(request: ApiRequest, unique_key: str) -> HttpResponse:
     for check in request.project.check_set.all():
-        if check.unique_key == unique_key:
+        if hmac.compare_digest(check.unique_key, unique_key):
             return flips(request, check)
     return HttpResponseNotFound()
 
