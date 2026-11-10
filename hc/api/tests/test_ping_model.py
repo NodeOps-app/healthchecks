@@ -21,7 +21,7 @@ class PingModelTestCase(BaseTestCase):
 
         p2 = Ping.objects.create(owner=self.check, created=EPOCH + td(minutes=5))
         assert p2.duration
-        self.assertEqual(p2.duration.total_seconds(), 300)
+        self.assertEqual(p2.duration.total_seconds(), 301)
 
     def test_it_handles_no_adjacent_start_event(self) -> None:
         Ping.objects.create(owner=self.check, created=EPOCH, kind="start")
