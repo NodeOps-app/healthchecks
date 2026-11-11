@@ -7,11 +7,14 @@ All notable changes to this project will be documented in this file.
 - Send "Monthly Phone/SMS/WA Limit Reached" notice to all team members (not just owner)
 - Include notification text in the "Monthly Phone/SMS/WA Limit Reached" notice
 - Add a note about unset ping key in the check details page (#1295)
+- In the "Add Gotify" form, let users specify alert priorities (#990, @BeyondMagic)
+- Add ability to edit existing Gotify integrations
 
 ### Bug Fixes
 - Fix WebhookValidator to handle input that contains square brackets
 - Update Check.rename_and_delete() to better handle race conditions
 - Enforce check limit (times two) when pinging by slug
+- Fix the "Edit Ntfy" form to preserve selected priorities when the form reloads
 
 ## v4.2 - 2026-04-28
 

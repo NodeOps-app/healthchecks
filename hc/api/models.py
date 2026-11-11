@@ -92,12 +92,19 @@ PO_PRIORITIES = {
 }
 
 NTFY_PRIORITIES = {
-    5: "max",
-    4: "high",
-    3: "default",
-    2: "low",
-    1: "min",
+    5: "max priority",
+    4: "high priority",
+    3: "default priority",
+    2: "low priority",
+    1: "min priority",
     0: "disabled",
+}
+
+GOTIFY_PRIORITIES = {
+    0: "disabled",
+    2: "low priority",
+    5: "normal priority",
+    9: "high priority",
 }
 
 
@@ -961,7 +968,15 @@ class NtfyConf(BaseModel):
 
     @property
     def priority_display(self) -> str:
-        return NTFY_PRIORITIES[self.priority]
+        parts = []
+        if self.priority in NTFY_PRIORITIES:
+            s = NTFY_PRIORITIES[self.priority]
+            parts.append(f"down: {s}")
+        if self.priority_up in NTFY_PRIORITIES:
+            s = NTFY_PRIORITIES[self.priority_up]
+            parts.append(f"up: {s}")
+
+        return ", ".join(parts)
 
 
 class TrelloConf(BaseModel):
@@ -980,6 +995,20 @@ class GitHubConf(BaseModel):
 class GotifyConf(BaseModel):
     url: str
     token: str
+    priority: int | None = Field(None, ge=0, le=9)
+    priority_up: int | None = Field(None, ge=0, le=9)
+
+    @property
+    def priority_display(self) -> str:
+        parts = []
+        if self.priority in GOTIFY_PRIORITIES:
+            s = GOTIFY_PRIORITIES[self.priority]
+            parts.append(f"down: {s}")
+        if self.priority_up in GOTIFY_PRIORITIES:
+            s = GOTIFY_PRIORITIES[self.priority_up]
+            parts.append(f"up: {s}")
+
+        return ", ".join(parts)
 
 
 class Channel(models.Model):
@@ -1027,6 +1056,7 @@ class Channel(models.Model):
             "whatsapp",
             "ntfy",
             "group",
+            "gotify",
         )
 
     def assign_all_checks(self) -> None:
