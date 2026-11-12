@@ -464,3 +464,5 @@ if sys.argv[1:2] == ["test"]:
             "OPTIONS": {},
         },
     }
+
+SITE_NAME = (
