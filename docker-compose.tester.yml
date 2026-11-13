@@ -1,0 +1,7 @@
+services:
+  web:
+    image: ghcr.io/example/app:3f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c
+  db:
+    image: postgres:15.4.1-alpine3.18
+  cache:
+    image: registry.example.com/team/cache:v2.0.0-rc.1-20261113
